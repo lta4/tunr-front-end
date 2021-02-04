@@ -11,19 +11,47 @@ function App() {
   const url = "https://tunr-back-end.herokuapp.com"
   const [songs, setSongs] = React.useState([]);
   const emptySong = {
-    name: "",
-    genre: "",
-    albums: [],
+    title: "",
+    artist: "",
+    time: ""
   };
   const [selectedSong, setSelectedSong] = React.useState(emptySong);
+  const [favObj, setFavObj] = React.useState(null)
+  const [favoritesArr, setFavoritesArr] = React.useState([])
   const getSongs = () => {
     fetch(url + "/songs")
       .then((response) => response.json())
       .then((data) => {
-        setSongs(data.data);
+        setSongs(data);
+        console.log(data)
       });
   };
+
+  const addSong = () => {
+    if(favObj !== null) {
+      changeFav(favObj)
+    }
+  }
+
+  const changeFav = (newFav) => {
+    if (favoritesArr === null) {
+      setFavoritesArr([newFav])
+    } else if (
+      !favoritesArr.some((fav) => { return fav.title === newFav.title})
+    ){
+      let newArray = [...favoritesArr]
+      newArray.push(newFav)
+      setFavoritesArr(newArray)
+    }
+  } 
+
+  const removeFav = (selectFav) => {
+    favoritesArr.splice(favoritesArr.indexOf(selectFav), 1)
+    setFavoritesArr([...favoritesArr])
+  }
+
   const handleCreate = (newSong) => {
+    console.log(newSong)
     fetch(url + "/songs", {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -44,6 +72,7 @@ const deleteSong = (song) => {
     setSelectedSong(song);
   };
   React.useEffect(() => getSongs(), []);
+  React.useEffect(() => addSong(), [favObj])
   return (
     <div className="App">
       <h1>TUNR</h1>
@@ -56,7 +85,7 @@ const deleteSong = (song) => {
           <Route
             exact
             path="/"
-            render={(rp) => <Display deleteSong= {deleteSong}{...rp} selectSong={selectSong} songs={songs} />}
+            render={(rp) => <Display changeFav ={changeFav} removeFav = {removeFav} favoritesArr = {favoritesArr} favObj={favObj} setFavObj ={setFavObj} deleteSong= {deleteSong}{...rp} selectSong={selectSong} songs={songs} />}
           />
           <Route
             exact
