@@ -1,6 +1,5 @@
 import "./App.css";
 import React from "react";
-import "./App.css";
 import { Route, Link, Switch } from "react-router-dom";
 import Display from "./Display";
 import Form from "./Form";
@@ -75,7 +74,8 @@ const deleteSong = (song) => {
   React.useEffect(() => addSong(), [favObj])
   return (
     <div className="App">
-      <h1>TUNR</h1>
+      <h1>TUNR.</h1>
+      <p>For all your playlist needs</p>
       <Link to="/create">
         <button>ADD A SONG</button>
       </Link>
