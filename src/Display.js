@@ -18,7 +18,7 @@ const handleClick2 = (event, data) => {
         <h2>PLAYLIST</h2>
         {songs.map((song) => {
           return (
-            <article key={song._id}>
+            <article key={song.id}>
               <div className="details">
                 <h2>{song.title}</h2>
                 <h3>{song.time}</h3>

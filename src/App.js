@@ -7,7 +7,7 @@ import Form from "./Form";
 
 function App() {
 
-  const url = "https://tunrapi.herokuapp.com/tunrs"
+  const url = "https://tunrapi.herokuapp.com"
   const [songs, setSongs] = React.useState([]);
   const emptySong = {
     title: "",
@@ -18,7 +18,7 @@ function App() {
   const [favObj, setFavObj] = React.useState(null)
   const [favoritesArr, setFavoritesArr] = React.useState([])
   const getSongs = () => {
-    fetch(url + "/songs")
+    fetch(url + "/tunrs")
       .then((response) => response.json())
       .then((data) => {
         setSongs(data);
@@ -51,7 +51,7 @@ function App() {
 
   const handleCreate = (newSong) => {
     console.log(newSong)
-    fetch(url + "/songs", {
+    fetch(url + "/tunrs", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newSong),
@@ -59,13 +59,14 @@ function App() {
       getSongs();
     });
   };
+
 const handleUpdate = (song) => {
-  fetch(url + "/songs/updateSong/" + song._id, {
+  fetch(url + "/tunrs/" + song.id, {
     method: "put",
     headers: { "Content-Type": "application/json" }, body: JSON.stringify(song)}).then(() => {getSongs()})
 }
 const deleteSong = (song) => {
-  fetch (url + "/songs/" + song._id, {method: "delete"}).then(() => {getSongs()})
+  fetch (url + "/tunrs/" + song.id, {method: "delete"}).then(() => {getSongs()})
 }
   const selectSong = (song) => {
     setSelectedSong(song);
@@ -85,7 +86,7 @@ const deleteSong = (song) => {
           <Route
             exact
             path="/"
-            render={(rp) => <Display changeFav ={changeFav} removeFav = {removeFav} favoritesArr = {favoritesArr} favObj={favObj} setFavObj ={setFavObj} deleteSong= {deleteSong}{...rp} selectSong={selectSong} songs={songs} />}
+            render={(rp) => <Display changeFav={changeFav} removeFav={removeFav} favoritesArr={favoritesArr} favObj={favObj} setFavObj={setFavObj} deleteSong= {deleteSong}{...rp} selectSong={selectSong} songs={songs} />}
           />
           <Route
             exact
