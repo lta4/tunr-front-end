@@ -7,7 +7,7 @@ import Form from "./Form";
 
 function App() {
 
-  const url = "https://tunr-back-end.herokuapp.com"
+  const url = "https://tunrapi.herokuapp.com/tunrs"
   const [songs, setSongs] = React.useState([]);
   const emptySong = {
     title: "",
