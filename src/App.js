@@ -75,7 +75,7 @@ const deleteSong = (song) => {
   React.useEffect(() => addSong(), [favObj])
   return (
     <div className="App">
-      <h1>TUNR.</h1>
+      <h1 className="title">TUNR.</h1>
       <p>For all your playlist needs</p>
       <Link to="/create">
         <button>ADD A SONG</button>

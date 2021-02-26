@@ -20,7 +20,7 @@ const handleClick2 = (event, data) => {
           return (
             <article key={song.id}>
               <div className="details">
-                <h2>{song.title}</h2>
+                <h2 className="detailTitle">{song.title}</h2>
                 <h3>{song.time}</h3>
               </div>
               <div>
